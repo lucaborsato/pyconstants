@@ -19,8 +19,13 @@ eps64bit  = np.finfo(np.float64(1.0)).eps
 TOL_dp    = eps64bit
 TOLERANCE = 1.0e-9
 TOL       = TOLERANCE
-d2s       = 86400.0 # seconds in a day  =  24h  =  86400 s
-d2m       = 1440.0  # min in a day  =  1440. min
+
+day2sec       = 86400.0 # seconds in a day  =  24h  =  86400 s
+day2min       = 1440.0  # min in a day  =  1440. min
+day2hour      = 24.0 # hounrs in a day ...
+sec2day       = 1.0/day2sec
+min2day       = 1.0/day2min
+hour2day      = 1.0/day2hour
 
 # Astronomical Constants USNO 2018
 
@@ -82,29 +87,30 @@ Rears = Rear/Rsun #  Rear to Rsun
 rho_sun_kgmc = Msun/(4.0*np.pi*np.power(Rsun*1000.0,3)/3.0)
 
 # astronomical constants
-AU = 149597870700.0 #Astronomical Unit in meters
-kappa = 0.01720209895 # Gaussian gravitational constant
-Giau = kappa*kappa # G [AU^3/Msun/d^2]
-Gsi = 6.67428e-11 #Gravitational Constants in SI system [m^3/kg/s^2]
-Gaumjd = Gsi*d2s*d2s*Mjup/(AU**3) # G in [AU,Mjup,day]
-speed = 299792458.0 # speed of light (c) in [m/s]
-speedaud = speed*d2s/AU # speed of light in [AU/d]
-pc2AU = 206264.806 # parsec to au
+AU       = 149597870700.0 #Astronomical Unit in meters
+kappa    = 0.01720209895 # Gaussian gravitational constant
+Giau     = kappa*kappa # G [AU^3/Msun/d^2]
+Gsi      = 6.67428e-11 #Gravitational Constants in SI system [m^3/kg/s^2]
+Gaumjd   = Gsi*day2sec*day2sec*Mjup/(AU**3) # G in [AU,Mjup,day]
+Gsun     = Gsi*rho_sun_kgmc*day2sec*day2sec
+speed    = 299792458.0 # speed of light (c) in [m/s]
+speedaud = speed*day2sec/AU # speed of light in [AU/d]
+pc2AU    = 206264.806 # parsec to au
 
 # others
-RsunAU = (Rsun*1.e3)/AU #Sun radius in AU
-RjupAU = (Rjup*1.e3)/AU #Jupiter radius in AU
+RsunAU = (Rsun*1.0e3)/AU #Sun radius in AU
+RjupAU = (Rjup*1.0e3)/AU #Jupiter radius in AU
 
 MJD = 2400000.5 # MJD ref time to convert to JD
 
 sigma_sb = 5.670367e-8 # Stefan-Boltzmann constant in W⋅m^−2⋅K^−4
 
-Teff_sun = 5772. # Effective Temperature of the Sun in K
+Teff_sun = 5772.0 # Effective Temperature of the Sun in K
 
 # from http://archive.stsci.edu/kepler/manuals/Data_Characteristics.pdf
 # section 1.1 Dates, Cadence Numbers, and Units
 # global variables
-Tkplr  = 2454833.       # Reference kepler time (days)
-Tkend  = 2456424.       # end Kepler data mission (Q17)
-texp_llc = 1766. /86400.    # llc exposure time in min to day
-texp_slc = 58.85 / 86400.    # slc exposure time in min to day
+Tkplr    = 2454833.0       # Reference kepler time (days)
+Tkend    = 2456424.0       # end Kepler data mission (Q17)
+texp_llc = 1766.0 *min2day    # llc exposure time in min to day
+texp_slc = 58.85  *min2day   # slc exposure time in min to day

@@ -1,0 +1,10 @@
+# compiled pyc
+*.pyc
+*~
+.*~
+*.mod
+*.o
+build
+*.egg-info
+dist
+*.ipynb_checkpoints
